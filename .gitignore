@@ -4,5 +4,8 @@
 .classpath
 .factorypath
 
+*.iml
+.idea
+
 target/
 bin/

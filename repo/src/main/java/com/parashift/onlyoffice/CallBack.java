@@ -219,6 +219,11 @@ public class CallBack extends AbstractWebScript {
                     logger.info("removing prop");
                     nodeService.removeProperty(nodeRef, Util.EditingHashAspect);
                     break;
+                case 6:
+                    if (callBackJSon.getInt("forcesavetype") == 1) {
+                        updateNode(nodeRef, callBackJSon.getString("url"));
+                    }
+                    break;
             }
             return null;
         }
