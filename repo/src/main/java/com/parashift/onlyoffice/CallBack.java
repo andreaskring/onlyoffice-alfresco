@@ -120,6 +120,15 @@ public class CallBack extends AbstractWebScript {
 
             String[] keyParts = callBackJSon.getString("key").split("_");
             NodeRef nodeRef = new NodeRef("workspace://SpacesStore/" + keyParts[0]);
+
+            // Magenta code START //
+            if (!nodeService.exists(nodeRef)) {
+                logger.debug("Node does not exist");
+                response.getWriter().write("{\"error\":0}");
+                return;
+            }
+            // Magenta code END //
+
             String hash = (String) nodeService.getProperty(nodeRef, Util.EditingHashAspect);
             String queryHash = request.getParameter("cb_key");
 
@@ -221,7 +230,12 @@ public class CallBack extends AbstractWebScript {
                     break;
                 case 6:
                     if (callBackJSon.getInt("forcesavetype") == 1) {
+                        logger.debug("Unlock node");
+                        lockService.unlock(nodeRef);
                         updateNode(nodeRef, callBackJSon.getString("url"));
+                        logger.debug("Lock node");
+                        lockService.lock(nodeRef, LockType.WRITE_LOCK);
+                        logger.debug("Node locked");
                     }
                     break;
             }
