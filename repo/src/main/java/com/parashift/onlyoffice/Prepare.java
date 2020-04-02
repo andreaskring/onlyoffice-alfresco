@@ -156,7 +156,13 @@ public class Prepare extends AbstractWebScript {
                 editorConfigObject.put("user", userObject);
                 editorConfigObject.put("customization", customizationObject);
                 userObject.put("id", username);
+
+                // Magenta customizations - START
                 customizationObject.put("forcesave", true);
+                customizationObject.put("chat", false);
+                customizationObject.put("comments", false);
+                customizationObject.put("hideRightMenu", true);
+                // Magenta customizations - END
 
                 if (personInfo == null) {
                     userObject.put("name", username);
